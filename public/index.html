@@ -33,9 +33,11 @@
 
         for (let [shortCode, url] of Object.entries(resObj)) {
           let li = document.createElement("li");
+          const truncatedUrl =
+            `${url >= 30}` ? `${url.slice(0, 29)}...........hi` : url;
           li.innerHTML = `<a href="/${shortCode}" target="_blank">
             ${window.location.origin}/${shortCode}
-            </a>-${url}`;
+            </a>-${truncatedUrl}`;
           list.appendChild(li);
         }
       };

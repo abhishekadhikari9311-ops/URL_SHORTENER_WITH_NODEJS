@@ -5,5 +5,7 @@
      "herw": "http://iost.tu.edu.np",
      "herwaaaaaaa": "http://iost.tu.edu.np",
      "abhi": "http://www.scbl.com.np",
-     "yt": "http://www.youtube.com"
+     "yt": "http://www.youtube.com",
+     "abc": "https://chatgpt.com/c/6b014968-b5b4-83ec-a767-ca70241bd1a1",
+     "asd": "https://www.example.com/search?query=javascript-nodejs-url-shortener-project&category=web-development&language=javascript&framework=nodejs&version=24&topic=http-server&method=crypto-randombytes&module=filesystem&database=json-file&learning=backend-development&project=full-stack-development&user=developer&redirect=short-url&original-url=very-long-url-for-testing-purpose&description=This-is-a-very-long-URL-created-for-testing-the-functionality-of-a-URL-shortener-application"
 }
