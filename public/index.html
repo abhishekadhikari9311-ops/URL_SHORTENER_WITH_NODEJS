@@ -9,7 +9,7 @@
   <body>
     <div class="main">
       <h1>URL SHORTENER</h1>
-      <form action="" id="form">
+      <form action="" id="url-form">
         <label for="url">Url</label>
         <input id="url" type="url" name="url" /><br /><br />
         <label for="short-code">ShortCode</label>
@@ -21,14 +21,31 @@
       <h2>Shortened Urls</h2>
     </div>
     <script>
-      document.getElementById("form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        let formData = new FormData(e.target);
-        console.log(formData);
-        let url = formData.get("url");
-        let shortcode = formData.get("short-code");
-        console.log(url, shortcode);
-      });
+      document
+        .getElementById("url-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          let formData = new FormData(e.target);
+          // console.log(formData);
+          let url = formData.get("url");
+          let shortCode = formData.get("short-code");
+          // console.log(url, shortcode);
+          try {
+            let res = await fetch("/shorten", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ url, shortCode }),
+            });
+            console.log(res, "res:");
+            if(res.ok){
+              
+            }
+          } catch (error) {
+            console.log("error occured:", error);
+          }
+        });
     </script>
   </body>
 </html>
