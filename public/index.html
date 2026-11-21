@@ -18,13 +18,33 @@
       </form>
 
       <hr />
-      <h2>Shortened Urls</h2>
+      <ul>
+        Shortened Urls
+      </ul>
     </div>
     <script>
+      const fetchedShortenedUrls = async () => {
+        let res = await fetch("/links");
+        let resObj = await res.json();
+        // console.log(resObj, "resobj:---");
+
+        let list = document.getElementsByTagName("ul")[0];
+        list.innerHTML = "";
+
+        for (let [shortCode, url] of Object.entries(resObj)) {
+          let li = document.createElement("li");
+          li.innerHTML = `<a href="/${shortCode}" target="_blank">
+            ${window.location.origin}/${shortCode}
+            </a>-${url}`;
+          list.appendChild(li);
+        }
+      };
+
       document
         .getElementById("url-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+
           let formData = new FormData(e.target);
           // console.log(formData);
           let url = formData.get("url");
@@ -38,14 +58,18 @@
               },
               body: JSON.stringify({ url, shortCode }),
             });
-            console.log(res, "res:");
-            if(res.ok){
-              
+            // console.log(res, "res:");
+            if (res.ok) {
+              fetchedShortenedUrls();
+              alert("url shortened successfully");
+            } else {
+              alert("short code already exists or any other invalid reasons");
             }
           } catch (error) {
             console.log("error occured:", error);
           }
         });
+      fetchedShortenedUrls();
     </script>
   </body>
 </html>

@@ -47,12 +47,39 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === "GET") {
     if (req.url === "/") {
-      serveFile(res, path.join("public", "index.html"), "text/html");
+      return serveFile(
+        res,
+        path.join(__dirname, "public", "index.html"),
+        "text/html",
+      );
     }
 
     if (req.url === "/style.css") {
-      serveFile(res, path.join("public", "style.css"), "text/css");
+      return serveFile(
+        res,
+        path.join(__dirname, "public", "style.css"),
+        "text/css",
+      );
     }
+    if (req.url === "/links") {
+      let links = await loadLinks();
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+      });
+      return res.end(JSON.stringify(links));
+    }
+    let links = await loadLinks();
+    let shortCode = req.url.slice(1);
+    if (links[shortCode]) {
+      res.writeHead(302, {
+        location: links[shortCode],
+      });
+      return res.end();
+    }
+    res.writeHead(404, {
+      "Content-Type": "text/plain",
+    });
+    return res.end("shortcode doesnot exists");
   }
   if (req.method === "POST" && req.url === "/shorten") {
     let links = await loadLinks();
